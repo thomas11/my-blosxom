@@ -1,0 +1,12 @@
+- write a little blurb for the front page
+
+- list entries in newest-first order on front page
+
+- write about.html
+
+- make a footer with a little "about" info and links. maybe licensing,
+  too?
+
+- DONE make a little Perl thing (Plack, Dancer?) that serves the
+  static files so that absolute links work.
+

@@ -1,0 +1,73 @@
+Leading Lean Software Development by Mary and Tom Poppendieck
+date: 2011-01-05
+blurb: Insightful, clear and thought-provoking; though not a comprehensive hands-on guide.
+categories: review, book, management
+
+A book on software development with the subtitle *Results are not the
+point*? Is that just attention-grabbing provocation or are the authors
+on to something?
+
+This is one of the first books on the management and organization of
+software development that I read, so take the following notes with a
+grain salt due to my lack of perspective.
+
+The Poppendiecks have been consulting on applying lean principles to
+software development for years, and they have written on it before in
+*Lean Software Development* and *Implementing Lean Software
+Development* (see [their website](http://www.poppendieck.com/)).  The
+"Leading ..." book builds on these two.  A colleague recommended and
+lent this book to me, so I read it out of order.  That, and the fact
+that I'm not familiar with the whole "lean" concept beyond some
+rudimentary basics, made the book somewhat difficult to digest.  Each
+chapter made sense to me, but my brain is still struggling to assemble
+the content into a coherent whole.
+
+Lacking the foundations of Lean, I had to look at the book at a
+generic guide on best practices in management, organization, and
+communication. Maybe that's not a bad way of approaching such a book.
+Its structure certainly makes sense from that point of view.  Six
+chapters address major factors in successful product design and
+delivery: Systems Thinking, Technical Excellence, Reliable Delivery,
+Relentless Improvement, Great People, Aligned Leaders.
+
+In the introduction, the authors note that since everyone sees the
+world through a particular "frame", different people and thus
+organizations might see their surroundings in vastly different ways.
+This limits the questions you ask and the alternatives you consider.
+When things don't work out, your frame of reference may have been off.
+Building on this observation, the book's chapters are composed of
+frames, that is different views on the development process.
+Real-world examples introduce and connect the frames.  This structure
+allows the authors to focus on individual aspects of success while
+keeping the full range of software projects in view.
+
+With 24 frames, the book packs a surprising amount of content into 250
+pages. Fully summarizing it would be time-consuming and
+pointless---the book itself is readable and without filler
+content. Nevertheless, a few chapters or frames stood out for me.
+
+In Technical Excellence, the authors make a strong point for
+emphasizing quality, for instance through test-driven development and
+evolutionary iterations, and excellence, through valueing expertise
+and avoiding the senseless "promotion" of the best developers to
+managers. These points are not new to developers, but it's great to
+see them put forth so strongly in a management book.
+
+Aligned Leaders contains several nuggets of insight into teams and
+leadership that I found fascinating.  I've never lead a team larger
+than two part-time programmers, so I'm sure someone with experience
+would read these chapters through a different frame.  The authors
+state that knowledge workers must necessarily be independent and
+self-directed; if their job doesn't allow that, they cannot do their
+best work.  Therefore, the role of a manager can only be to set the
+tone and to otherwise focus on *making people better*---through
+caring, respect, and coaching.
+
+Overall, the book impressed me with its combination of insightful
+content, clear and natural writing, and constant referral to
+real-world examples.  You might want to start with the authors'
+introductory *Lean Software Development*, though, to better understand
+the underlying ideas.
+
+*Leading Lean Software Development* by Mary and Tom
+Poppendieck. Addison-Wesley, 2010.

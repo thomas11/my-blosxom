@@ -1,0 +1,71 @@
+Watching some YAPC::EU 2010 presentations
+date: 2010-09-20
+blurb: Where Plack is the new black. And recording talks is difficult.
+zine: The Perl Nature
+categories: The Perl Nature, perl, seen
+
+In August, Perl mongers gathered in Pisa for the annual
+[YAPC::EU](http://conferences.yapceurope.org/ye2010/), one of the
+biggest Perl meetings. I couldn't make it there, but at least I
+finally got to check out the
+[presentation recordings](http://www.youtube.com/user/yapceu2010).
+
+Unfortunately, the recordings are pretty bad, for the most part. The
+speakers are hard or impossible to hear, and worse, the slides are
+unreadable. For technical presentations with code, that's a
+dealbreaker. I know one doesn't complain about volunteer efforts,
+especially when one cannot make a reasonable suggestion for
+improvement. So all I want to say is that it would be great if the
+organizers of next years YAPC::EU could improve on that.
+
+But then, it just means I gotta go myself next time. It's a community
+event, after all.
+
+Anyway, I still made some notes on what I saw. Here are the
+interesting bits.
+
+Leon Timmerman presented
+[*An alternative to XS*](http://www.youtube.com/watch?v=DKo4PUKuZ8I). He
+said that while XS is flexible and mature, it's yet another new
+language to learn and it's not trivial. Instead, Leon is working on
+using C++ templates to do the same job. Let's see how that works out.
+
+Dave Rolsky showed off
+[*Fey and Fey::ORM*](http://www.youtube.com/user/yapceu2010#g/c/6546F3721A196286). It's
+too bad I couldn't really follow his talk nor see any of the slides,
+because I'm having a really hard time with the ORMs I've seen and I
+was wondering if I'm just too dumb. In his introduction Dave says that
+the same happened to him, so he wrote Fey as a different kind of
+ORM. I might be grossly misrepresenting, from memory, what he actually
+said. I will keep Fey on the radar.
+
+Aaron Crane's
+[*Perl on Speed: Multicore Programming for Mortals*](http://www.youtube.com/user/yapceu2010#grid/user/348D7F53EB2BBDCA)
+has clear audio, but no slides. Aaron prefers processes over
+threads. It's easier, the OS does advanced scheduling for you, and not
+having shared memory forces you to write a clear architecture with
+data being passed at clear boundaries. Processes are cheap on Linux
+anyway. However, I wonder to what extent that preference for processes
+is due to
+[Perl's less-than-optimal thread implementation](http://perldoc.perl.org/perlthrtut.html#Performance-considerations). Erlang
+processes are super cheap and work great into the thousands, per core.
+
+SawyerX presented
+[*When Perl Met Android*](http://www.youtube.com/user/yapceu2010#g/c/6C2680AF9864471D),
+which I found really interesting. I didn't know about SL4A, the
+Scripting Layer for Android. It runs an RPC server that speaks JSON,
+so different languages can easily interface with it. I only watched
+the first half of Sawyer's talk as the second half consists of code
+samples that you can't see in the recording. But it was good to learn
+that Android.pm supports almost all of the Android API: dialogs,
+sensors, GPS, text-to-speech, etc. It also supports daemons. Someone
+got Plack to run---local web apps!
+
+And the price for the funniest announcement goes to Dave Cross for
+Perl Vogue. "Is Plack the new Black?" Dave
+[announced](http://www.youtube.com/watch?v=Ykc4p6CeCuY)
+[www.perlvogue.com](http://www.perlvogue.com), where Perl fashionistas
+check out the latest trends.
+
+Wow, amazing how many presentations you can watch when you stop two
+minutes in for most of them :-)

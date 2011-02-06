@@ -1,0 +1,70 @@
+Java anonymous classes are too verbose
+date: 2010-11-11
+blurb: No fun emulating closures.
+zine: Desperate Java
+categories: Desperate Java, programming, java
+
+Java doesn't have first-class functions or closures, but you can
+emulate some of that with anonymous classes. Alas, they are just too
+cumbersome and verbose--it's not elegant anymore if you need more LoC
+than with the iterative loop.
+
+Recently at work, I wanted to execute some code for each member of a
+List, and I needed to know which iteration step I was at. A
+straightforward solution is, obviously, the classic for loop:
+
+    for (int i = 0; i < keyword.getSynonyms(); i++) {
+        String synonym = keyword.getSynonyms().get(i);
+        // do something
+    }
+
+That's fine in many cases, but it has two problems. The extra line to
+get at the List element is annoying. More importantly, depending on
+the List implementation the `get(i)` operation might be in O(n),
+requiring another scan of the list each time.
+
+So we could iterate normally and count ourselves:
+
+    int order = 0;
+    for (String synonym : keyword.getSynonyms()) {
+        // do something
+        order++;
+    }
+
+It's better, but I needed several such loops, and I wondered if I
+couldn't write all that plumbing just once. I came up with this:
+
+    public abstract class Counting<T, E extends Throwable>
+    {        
+        public void loop(Iterable<T> things) throws E
+        {
+            int step = 0;
+            for (T t : things)
+            {
+                iteration(t, step);
+                step++;
+            }
+        }
+        
+        public abstract void iteration(T thing, int step) throws E;
+    }
+
+As the loop body can throw exceptions, and we might want to declare
+the specific kind of exception, this needs to be an additional generic
+type. This breaks if you need more than one exception type.
+
+The above loop then becomes
+
+    new Counting<String, SQLException>()
+    {
+        @Override public void iteration(String synonym, int step)
+        throws SQLException
+        {
+            // do something
+        }
+    }.loop( keyword.getSynonyms() );
+
+Hmmm. Even after writing an abstract class to extract the repeated
+parts, and not counting my preference for opening-brace-on-new-line, I
+still haven't saved a single line. Can I have `map` and first-class
+functions, please? Time for Scala?
