@@ -20,7 +20,7 @@ sub sort {
     my($files_ref) = @_;
 
     map { $_->[1] }
-      sort { $a->[0] cmp $b->[0] || $a->[1] cmp $b->[1] }
+      sort { $b->[0] cmp $a->[0] || $b->[1] cmp $a->[1] }
         map { [ dirname( $_ ), $_ ] }
           keys %$files_ref;
 
@@ -39,6 +39,8 @@ Blosxom Plug-in: sort_by_path
 
 Sorts Weblog entries by path rather than in the default reverse-chronological
 order.
+
+EDITED BY THOMASK: reverse sort order.
 
 Use in concert with an appropriate "date" replacement, using path instead
 of date as the divider.  E.g.:  <p><b>$path</b></p>
