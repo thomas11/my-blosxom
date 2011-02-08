@@ -1,5 +1,5 @@
 body {
-  background-color: #fdfdfd;
+  background-color: #fefefe;
   font-family: sans-serif;
   font-size: 90%;
   text-align: left;
@@ -15,7 +15,7 @@ body {
 }
 
 .site h1 {
-  font-size: 130%;
+  font-size: 120%;
   margin-top: 2em;
 }
 .site h2,h3,h4 {
