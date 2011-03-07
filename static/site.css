@@ -1,17 +1,18 @@
 body {
   background-color: #fefefe;
-  font-family: sans-serif;
-  font-size: 90%;
-  text-align: left;
-  margin: 2em;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 101%;
+  text-align: center;
+  margin: 1em;
   /*margin-left: 10%; */
 }
 
 .site {
   max-width: 40em;
+  margin: 2em auto 2em auto;
   font-size: 100%;
-  line-height: 140%;
-  text-align: justify;
+  line-height: 150%;
+  text-align: left;
 }
 
 .site h1 {
@@ -31,7 +32,7 @@ body {
 }
 
 code {
-    font-size: 1.15em;
+    font-size: 1.2em;
     border: 1px solid #ddd;
     padding: 0 .2em;
 }
@@ -56,26 +57,39 @@ ul.recent .categories {
   font-size: 80%;
 }
 
+a {
+  color: black;
+}
+a:visited {
+  color: #444;
+}
+
 .meta {
   color: #444;
 }
-a.nav {
-    font-weight: bold;
-}
-.meta a.nav {
-    text-decoration: none;
-    padding-left: 1em;
-}
-a.nav:visited {
-    color: #444;
-}
-a.nav:hover {
-    color: #000;
-}
+
 .header {
   border-bottom: solid lightgray 3px;
   margin-bottom: 2em;
   padding-bottom: 0.3em;
+}
+
+.header a {
+  text-decoration: none;
+}
+
+.header a:visited {
+  color: #444;
+}
+
+a.nav {
+    font-weight: bold;
+}
+.meta a.nav {
+    padding-left: 1em;
+}
+a.nav:hover {
+    color: #000;
 }
 .footer {
   border-top: solid lightgray 3px;
@@ -93,6 +107,7 @@ a.nav:hover {
 }
 .articlesummary a {
     font-weight: bold;
+    text-decoration: none;
 }
 .articlesummary .date {
     font-size: 90%;

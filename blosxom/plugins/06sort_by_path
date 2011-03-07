@@ -20,10 +20,11 @@ sub sort {
     my($files_ref) = @_;
 
     map { $_->[1] }
-      sort { $b->[0] cmp $a->[0] || $b->[1] cmp $a->[1] }
-        map { [ dirname( $_ ), $_ ] }
-          keys %$files_ref;
-
+      #sort { $b->[0] cmp $a->[0] || $b->[1] cmp $a->[1] }
+      #  map { [ dirname( $_ ), $_ ] }
+    sort { $b->[0] cmp $a->[0] }
+    map { [basename($_), $_] }
+    keys %$files_ref;
   };
 }
   

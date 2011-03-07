@@ -22,25 +22,28 @@ sub interpolate {
     my $template = shift;
 
     # defined
-	$template =~ s#\?\{(\$\w+(?:::)?\w*) (.*?)\}#"defined $1 ? \$2 : ''"#gee;
+    $template =~ s#\?\{(\$\w+(?:::)?\w*)\s+(.*?)\}#"defined $1 ? \$2 : ''"#sgee;
+
+    # defined []
+    $template =~ s#\?\[(\$\w+(?:::)?\w*)\s+(.*?)\]#"defined $1 ? \$2 : ''"#sgee;
 
     # not defined
-	$template =~ s#\?\{!(\$\w+(?:::)?\w*) (.*?)\}#"!defined $1 ? \$2 : ''"#gee;
+    $template =~ s#\?\{!(\$\w+(?:::)?\w*)\s+(.*?)\}#"!defined $1 ? \$2 : ''"#sgee;
 
-	# not equal to
-    $template =~ s#\?\{(\$\w+(?:::)?\w*)!=(.*?) (.*?)\}#"defined $1 and $1 ne '$2' ? \$3 : ''"#gee;
+    # not equal to
+    $template =~ s#\?\{(\$\w+(?:::)?\w*)!=(.*?)\s+(.*?)\}#"defined $1 and $1 ne '$2' ? \$3 : ''"#sgee;
 
 	# equal to
-    $template =~ s#\?\{(\$\w+(?:::)?\w*)=(.*?) (.*?)\}#"defined $1 and $1 eq '$2' ? \$3 : ''"#gee;
+    $template =~ s#\?\{(\$\w+(?:::)?\w*)=(.*?)\s+(.*?)\}#"defined $1 and $1 eq '$2' ? \$3 : ''"#sgee;
 
 	# greater than
-	$template =~ s#\?\{(\$\w+(?:::)?\w*)>(.*?) (.*?)\}#"defined $1 and $1 gt '$2' ? \$3 : ''"#gee;
+	$template =~ s#\?\{(\$\w+(?:::)?\w*)>(.*?)\s+(.*?)\}#"defined $1 and $1 gt '$2' ? \$3 : ''"#sgee;
 
 	# less than 
-	$template =~ s#\?\{(\$\w+(?:::)?\w*)<(.*?) (.*?)\}#"defined $1 and $1 lt '$2' ? \$3 : ''"#gee;
+	$template =~ s#\?\{(\$\w+(?:::)?\w*)<(.*?)\s+(.*?)\}#"defined $1 and $1 lt '$2' ? \$3 : ''"#sgee;
 
 	# unconditional (and recursive)
-	while( $template =~ s/(\$[a-zA-Z]\w+(?:::)?\w*)/"defined $1 ? $1 : ''"/gee ) { }
+	while( $template =~ s/(\$[a-zA-Z]\w+(?:::)?\w*)/"defined $1 ? $1 : ''"/sgee ) { }
 
     return $template;
 

@@ -1,9 +1,11 @@
 <h1>$title</h1>
 
+?[$meta::blurb
 <div class="abstract">
   <span class="published">$meta::blurb</span>
-  <br /><span class="published">$meta::date ?{$meta::zine in <a href="" class="nav">$meta::zine</a>}</span>
+  <br /><span class="published">$meta::date<!--, ?{$meta::zine in <a href="" class="nav">$meta::zine</a>} --></span>
 </div>
+]
 
 $body
 

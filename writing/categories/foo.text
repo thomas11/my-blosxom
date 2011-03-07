@@ -1,0 +1,11 @@
+Categories
+static: true
+
+This is sort of a table of contents or index by categories.
+
+
+Perl:
+$load_stored_categories::perl
+
+Java:
+$load_stored_categories::java

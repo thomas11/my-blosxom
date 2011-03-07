@@ -1,0 +1,38 @@
+Towards Automatic Construction of Reusable Prediction Models for Component-Based Performance Engineering
+date: 2008-02-04
+blurb: The paper about my Master's Thesis, doing static code analysis for Java.
+categories: publication
+
+T. Kappler, H. Koziolek, K. Krogmann, and R. H. Reussner. *Towards
+Automatic Construction of Reusable Prediction Models for
+Component-Based Performance Engineering*. In Proc. Software
+Engineering 2008, ser. LNI, K. Herrmann and B. Brügge, editors,
+vol. 121, Munich, Germany, Feb. 18-22, 2008, pp. 140–154.
+
+Accepted for the Software Engineering Conference Munich 2008 (SE08).
+
+Many thanks to my co-authors for making that happen, and especially to
+Prof. Dr. Reussner and Dr. Heiko Koziolek for the great mentoring, and
+for letting me write the thesis at IIT Delhi.
+
+BibTeX:
+
+    @STRING{SE2008 = "Software Engineering 2008"}
+    
+    @inproceedings{Kappler2008a,
+      author = "Kappler, Thomas and Koziolek, Heiko and Krogmann,
+                Klaus and Reussner, Ralf H.",
+      editor = "Herrmann, Korbinian and Br{\"u}gge, Bernd",
+      title = "Towards Automatic Construction of Reusable Prediction
+               Models for Component-Based Performance Engineering",
+      publisher = "Bonner K{\"o}llen Verlag",
+      series = "LNI",
+      number = "121",
+      volume = "121",
+      year = "2008",
+      address = "Munich, Germany",
+      booktitle = SE2008,
+      pages = "140--154",
+      month = "February" # "18--22"
+    }
+
