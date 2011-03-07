@@ -26,8 +26,6 @@ sub start {
 sub story {
   my ($self, $path, $fn, $story, $title, $body) = @_;
 
-  print "\n$path\n";
-
   my $tmpl;
   $blosxom::path_info =~ m!^(?:.*/)?(index\.$blosxom::flavour|[^\.]*)$!
     and $tmpl = &$blosxom::template($blosxom::path,$package,$blosxom::flavour)
