@@ -1,0 +1,75 @@
+Geneva JUG New Year's meeting 2011
+date: 2011-01-18
+blurb: Iulian Dragos on Scala & Jonas Bonér on Akka.
+categories: seen, meeting, java, scala
+
+The [Geneva Java User's Group]() had their annual New Year's meeting
+yesterday, with two invited speakers. Iulian Dragos gave an Intro to
+Scala, and Jonas Bonér presented his actor library
+[Akka](http://akka.io).
+
+Iulian works on Scala and with Scala with Martin Odersky at EPFL
+Lausanne and Odersky's consulting company Scala Solutions. For initial
+motivation, he listed some companies already using Scala in
+production. Apart from the ones known in the anglophone hacker web
+like Twitter and Foursquare, some big European enterprises such as
+Credit Suisse, UBS, and Siemens were on the list. Iulian's
+presentation was then a straightforward intro to Scala. Up to slide
+13, I noted, it was all Perl in a different syntax :-) He then moved
+on to more advanced features such as mix-ins. Their sensitivity to the
+order in which they are included left the audience sceptical. The
+parallel collections of the upcoming Scala 2.9, on the other hand,
+looked great.
+
+Overall a nice intro to Scala. It suffered a bit from lack of
+practical examples for the advanced language features, but that's
+unavoidable given the time constraints. Speaker's note: a laser
+pointer would have been very helpful for going through sample code.
+
+[Jonas Bonér](http://jonasboner.com) is the principal author of Akka,
+a very powerful actor framework written in Scala. Jonas uses Scala
+since 2005. He loves Erlang and only moved on to the JVM world because
+he had difficulties convincing others of its greatness. The natural
+compromise was then to implement an Erlang-style platform using Scala
+actors, which became Akka.
+
+Akka is very optimized. An actor uses only 600 bytes (yes, bytes) of
+memory, so you can spawn millions of them. Syntax is easy and
+flexible: send a message to an actor with a single bang (`!`), `!!`
+blocks, `!!!` returns a `Future`.
+
+A unique property of Akka is that it combines actors with Software
+Transactional Memory, usually regarded as two separate ideas to tackle
+concurrency. You write
+
+    import akka.stm. ...
+    
+    atomic {
+        atomic {
+            // Atomic blocks are composable, so they don't break
+            // encapsulation like locks.
+        }
+    }
+    
+If you, for instance, send a message to an actor a1, which updates its
+state atomically, messages another actor a2, which then also tries to
+updates its state atomically but fails, then the whole chain will be
+rolled back and retried, even if the messaging was
+asynchronous. Powerful indeed.
+
+Jonas presented a fascinating integration example towards the end of
+this talk. He likes the Apache Camel integration framework. Akka comes
+with a Camel module. One can define an actor with, for example,
+`endpoint "file://foo"`. Any change to `foo` will then be send as a
+message to the actor. The other way round works, too, of course--think
+websockets.
+
+Almost as an aside, Jonas mentioned that Akka supports code hot-swap
+like Erlang.
+
+Akka looks like a very powerful framework indeed, to be investigated.
+
+Jonas presented in a great, buddy-like way, like a fellow hacker
+chatting over a beer. Some ranting and rambling only added to the
+impact of the presentation. His slides were minimal and well
+done--great talk overall.
