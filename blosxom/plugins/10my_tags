@@ -1,0 +1,47 @@
+package my_tags;
+
+
+sub start {
+    1;
+}
+
+
+my $meta_tag = 'categories';
+my %tags = ();
+%links = ();
+
+sub story {
+    my ($pkg, $path, $filename, $story_ref, $title_ref, $body_ref) = @_;
+
+    # open(my $log, '>', 'taglog') or die "taglog: $!";
+    # print $log $meta::categories, "\n";
+    # print $meta::categories, "\n";
+
+    # print $filename, "\n";
+
+    for my $tag (split /, */, $meta::categories) {
+        $tags{$tag} = [] if not exists $tags{$tag};
+        push @{$tags{$tag}}, [$filename, $$title_ref];
+        $links{$tag} = "<a href=\"/$filename.html\">$$title_ref</a> ";
+        # $$tag = "<a href=\"/$filename.html\">$$title_ref</a> ";
+    }
+
+    return 1;
+}
+
+
+sub foot {
+    while (my ($tag, $paths) = each %tags) {
+        my $list = '';
+        for my $path (@{$paths}) {
+            my ($name, $title) = @{$path};
+            $list .= "<a href=\"$name.html\">$title</a> ";
+        }
+        $$tag = $list;
+    }
+
+    return 1;
+}
+
+
+1;

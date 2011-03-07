@@ -1,0 +1,34 @@
+package load_stored_categories;
+
+use Storable;
+
+my $CATEGORIES = 'categories';
+my $STORAGE = '.categories';
+
+
+sub start {
+    # Retrieve Storable-saved hash from disk.
+    my $storage_path = $blosxom::datadir . '/../' . $STORAGE;
+    my $stored_files_per_tag = retrieve($storage_path);
+
+    # Make paths point to HTML files.
+    my %files_per_tag = ();
+    while (my ($cat, $files) = each %$stored_files_per_tag) {
+        $files_per_tag{$cat} =
+          [ map { s/\.$blosxom::file_extension/\.html/; $_; } @$files ];
+    }
+
+    # Create the HTML <ul> to display directly.
+    while (my ($cat, $files) = each %files_per_tag) {
+        my $list = '<ul>';
+        for my $file (@$files) {
+            $list .= '<li><a href="' . $file . '">' . $file . '</a></li>';
+        }
+        $list .= '</ul>';
+        $$cat = $list;
+    }
+
+    1;
+}
+
+1;
