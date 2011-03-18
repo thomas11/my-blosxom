@@ -1,7 +1,13 @@
-- write about.html
+- sorting and creating the archive pages by mtime makes no sense. do
+  it based on either filename or meta:date tag.
+
+- little welcome blurb on the home page? would require hacking as
+  putting it in header.html would show it on each article page, too.
 
 - make a footer with a little "about" info and links. maybe licensing,
   too?
+
+- DONE write about.html
 
 - DONE write a little blurb for the front page
 
