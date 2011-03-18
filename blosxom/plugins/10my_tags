@@ -30,7 +30,9 @@ sub story {
 }
 
 
-sub foot {
+sub end {
+    my $cat_dir = 'categories';
+
     while (my ($tag, $paths) = each %tags) {
         my $list = '';
         for my $path (@{$paths}) {

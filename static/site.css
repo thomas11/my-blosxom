@@ -1,7 +1,7 @@
 body {
   background-color: #fefefe;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 101%;
+  font-size: 110%;
   text-align: center;
   margin: 1em;
   /*margin-left: 10%; */
@@ -32,7 +32,7 @@ body {
 }
 
 code {
-    font-size: 1.2em;
+    font-size: 1.1em;
     border: 1px solid #ddd;
     padding: 0 .2em;
 }

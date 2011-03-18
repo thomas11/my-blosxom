@@ -2,27 +2,38 @@ package load_stored_categories;
 
 use Storable;
 
-my $CATEGORIES = 'categories';
-my $STORAGE = '.categories';
+my $ARTICLES_PER_CATEGORY_STORAGE = '.categories';
+my $META_PER_FILE_STORAGE = '.meta';
 
+
+sub path_to_storage {
+    my ($storable_filename) = @_;
+    return $blosxom::datadir . '/../' . $storable_filename;
+}
 
 sub start {
-    # Retrieve Storable-saved hash from disk.
-    my $storage_path = $blosxom::datadir . '/../' . $STORAGE;
-    my $stored_files_per_tag = retrieve($storage_path);
+    # Retrieve Storable-saved hashes from disk.
+    my $files_per_tag =
+      retrieve(path_to_storage($ARTICLES_PER_CATEGORY_STORAGE));
+    # my $meta_per_file = retrieve(path_to_storage($META_PER_FILE_STORAGE));
 
     # Make paths point to HTML files.
     my %files_per_tag = ();
-    while (my ($cat, $files) = each %$stored_files_per_tag) {
-        $files_per_tag{$cat} =
-          [ map { s/\.$blosxom::file_extension/\.html/; $_; } @$files ];
+    while (my ($cat, $articles) = each %$files_per_tag) {
+        $files_per_tag{$cat} = [];
+        for my $article (@$articles) {
+            my $html_file = $article;
+            $html_file .= '.html';
+            push @{$files_per_tag{$cat}}, $html_file;
+        }
     }
 
+
     # Create the HTML <ul> to display directly.
-    while (my ($cat, $files) = each %files_per_tag) {
+    while (my ($cat, $files) = each %$stored_files_per_tag) {
         my $list = '<ul>';
-        for my $file (@$files) {
-            $list .= '<li><a href="' . $file . '">' . $file . '</a></li>';
+        for my $article (@$files) {
+            $list .= '<li><a href="../' . $article->[0] . '">' . $article->[1] . '</a></li>';
         }
         $list .= '</ul>';
         $$cat = $list;
