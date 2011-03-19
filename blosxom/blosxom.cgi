@@ -404,8 +404,30 @@ $entries = sub {
                 )
             {
 
-                # read modification time
-                my $mtime = stat($File::Find::name)->mtime or return;
+                # thomas11: Use the date in the file name, as in
+                # 2011-03-13_title, rather than the actual file mtime. I
+                # sometimes publish articles long after writing the
+                # initial version.
+                my $mtime;
+                if ($File::Find::name =~ /(\d{4})-(\d{2})-(\d{2})_.+/) {
+                    my ($year, $month, $day) = ($1, $2, $3);
+                    use DateTime;
+                    my $dt = DateTime->new(
+                        year       => $year,
+                        month      => $month,
+                        day        => $day,
+                        hour       => 0,
+                        minute     => 0,
+                        second     => 0,
+                        nanosecond => 0,
+                        time_zone  => 'Europe/Zurich',
+                      );
+                    $mtime = $dt->epoch();
+                } else {
+                    # read modification time
+                    $mtime = stat($File::Find::name)->mtime or return;
+                }
+                # END thomas11
 
                 # to show or not to show future entries
                 return unless ( $show_future_entries or $mtime < time );
