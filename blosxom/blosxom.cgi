@@ -10,6 +10,8 @@ package blosxom;
 
 # --- Configurable variables -----
 
+my $debug = 0;
+
 my $base_dir = "/home/thomas/Dropbox/blosxom";
 
 # What's this blog's title?
@@ -435,12 +437,12 @@ $entries = sub {
                 }
                 # END thomas11
 
-                print "1 Handling $File::Find::name\n";
+                print "1 Handling $File::Find::name\n" if $debug;
 
                 # to show or not to show future entries
                 return unless ( $show_future_entries or $mtime < time );
 
-                print "2 not in the future\n";
+                print "2 not in the future\n" if $debug;
 
                 # add the file and its associated mtime to the list of files
                 $files{$File::Find::name} = $mtime;
@@ -452,7 +454,7 @@ $entries = sub {
                     or !-f $static_file
                     or stat($static_file)->mtime < $mtime )
                 {
-                    print "3 Rendering statically, index $1\n";
+                    print "3 Rendering statically, index $path\n" if $debug;
 
                     $indexes{$path} = 1;
                     $d = join( '/', ( nice_date($mtime) )[ 5, 2, 3 ] );
@@ -500,7 +502,7 @@ if (    !$ENV{GATEWAY_INTERFACE}
     # Home Page and Directory Indexes
     my %done;
     foreach my $path ( sort keys %indexes ) {
-        print "4 Path $path\n";
+        print "4 Path $path\n" if $debug;
 
         my $p = '';
         foreach ( ( '', split /\//, $path ) ) {
@@ -508,7 +510,7 @@ if (    !$ENV{GATEWAY_INTERFACE}
             $p =~ s!^/!!;
             next if $done{$p}++;
 
-            print "5 not done yet\n";
+            print "5 not done yet\n" if $debug;
 
             mkdir "$static_dir/$p", 0755
                 unless ( -d "$static_dir/$p" or $p =~ /\.$file_extension$/ );
@@ -523,7 +525,7 @@ if (    !$ENV{GATEWAY_INTERFACE}
                 $output = '';
                 if ( $indexes{$path} == 1 ) {
 
-                    print "6a indexes present\n";
+                    print "6a indexes present\n" if $debug;
 
                     # category
                     $path_info = $p;
@@ -535,7 +537,7 @@ if (    !$ENV{GATEWAY_INTERFACE}
                 }
                 else {
                     
-                    print "6b date\n";
+                    print "6b date\n" if $debug;
 
                     # date
                     local (
