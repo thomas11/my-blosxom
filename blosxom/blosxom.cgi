@@ -18,7 +18,7 @@ my $base_dir = "/home/thomas/Dropbox/blosxom";
 $blog_title = "Thomas Kappler";
 
 # What's this blog's description (for outgoing RSS feed)?
-$blog_description = "Thomas Kappler's personal/programming site.";
+$blog_description = "Thomas Kappler.";
 
 # What's this blog's primary language (for outgoing RSS feed)?
 $blog_language = "en";
@@ -38,7 +38,7 @@ $url = "/";
 $depth = 0;
 
 # How many entries should I show on the home page?
-$num_entries = 10;
+$num_entries = 12;
 
 # What file extension signifies a blosxom entry?
 $file_extension = "text";
