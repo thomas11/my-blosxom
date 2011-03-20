@@ -6,19 +6,19 @@ categories: The Perl Nature, perl, blosxom, code
 
 
 [Blosxom](http://blosxom.sourceforge.net/), the Perl blog engine
-powering this site, is amazingly flexible due its plugin
-architecture. One aspect of its behavior is not customizable through a
-plugin: it determines an article's date by the time of the last
-modification (`mtime`) of the file containing it.
+powering this site, is amazingly flexible due to its plugin
+architecture. But one aspect of its behavior is not customizable
+through a plugin: it determines an article's date by the time of the
+last modification (`mtime`) of the file containing it.
 
 I wanted the ability to date files to arbitrary points in time, since
 I sometimes write up things I did or saw long after the fact. Also, I
-didn't like that editing an article after publishing it pushes it to
-the front again.
+didn't like that editing a published article pushes it to the front
+again.
 
 Instead, I wanted Blosxom to take an article's date from its file
-name. I follow a consistent naming scheme here, where each article is
-in a file named `year-month-day_title`. After parsing the date at the
+name. I follow a consistent naming scheme where each article is in a
+file named `year-month-day_title`. After parsing the date at the
 beginning, we can use `DateTime` to construct a fake `mtime` based on
 the result. If the parsing fails, we fall back to Blosxom's standard
 routine. Here's the patch.
@@ -81,6 +81,3 @@ routine. Here's the patch.
                              if $static_entries;
                      }
                  }
-
-
-
