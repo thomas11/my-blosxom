@@ -1,0 +1,86 @@
+Overriding Blosxom's Time Stamping
+date: 2011-03-20
+blurb: Blosxom sorts articles by the input file's mtime. Here's a patch to override that.
+zine: The Perl Nature
+categories: The Perl Nature, perl, blosxom, code
+
+
+[Blosxom](http://blosxom.sourceforge.net/), the Perl blog engine
+powering this site, is amazingly flexible due its plugin
+architecture. One aspect of its behavior is not customizable through a
+plugin: it determines an article's date by the time of the last
+modification (`mtime`) of the file containing it.
+
+I wanted the ability to date files to arbitrary points in time, since
+I sometimes write up things I did or saw long after the fact. Also, I
+didn't like that editing an article after publishing it pushes it to
+the front again.
+
+Instead, I wanted Blosxom to take an article's date from its file
+name. I follow a consistent naming scheme here, where each article is
+in a file named `year-month-day_title`. After parsing the date at the
+beginning, we can use `DateTime` to construct a fake `mtime` based on
+the result. If the parsing fails, we fall back to Blosxom's standard
+routine. Here's the patch.
+
+    --- blosxom.cgi.orig	2011-03-20 10:33:29.002204071 +0100
+    +++ blosxom.cgi.mtime	2011-03-20 10:41:30.718204071 +0100
+    @@ -404,8 +404,35 @@
+                     )
+                 {
+     
+    +                # thomas11: save the regex matched groups in variables
+    +                # to preserve them from future regex matches and for
+    +                # readability.
+    +                my $path = $1;
+    +                my $file_basename = $2;
+    +
+    +                # thomas11: Use the date in the file name, as in
+    +                # 2011-03-13_title, rather than the actual file mtime. I
+    +                # sometimes publish articles long after writing the
+    +                # initial version.
+    +                my $mtime;
+    +                if ($File::Find::name =~ /(\d{4})-(\d{2})-(\d{2})_.+/) {
+    +                    my ($year, $month, $day) = ($1, $2, $3);
+    +                    use DateTime;
+    +                    my $dt = DateTime->new(
+    +                        year       => $year,
+    +                        month      => $month,
+    +                        day        => $day,
+    +                        hour       => 0,
+    +                        minute     => 0,
+    +                        second     => 0,
+    +                        nanosecond => 0,
+    +                        time_zone  => 'Europe/Zurich',
+    +                      );
+    +                    $mtime = $dt->epoch();
+    +                } else {
+                     # read modification time
+    -                my $mtime = stat($File::Find::name)->mtime or return;
+    +                    $mtime = stat($File::Find::name)->mtime or return;
+    +                }
+     
+                     # to show or not to show future entries
+                     return unless ( $show_future_entries or $mtime < time );
+    @@ -415,15 +442,15 @@
+     
+                     # static rendering bits
+                     my $static_file
+    -                    = "$static_dir/$1/index." . $static_flavours[0];
+    +                    = "$static_dir/$path/index." . $static_flavours[0];
+                     if (   param('-all')
+                         or !-f $static_file
+                         or stat($static_file)->mtime < $mtime )
+                     {
+    -                    $indexes{$1} = 1;
+    +                    $indexes{$path} = 1;
+                         $d = join( '/', ( nice_date($mtime) )[ 5, 2, 3 ] );
+                         $indexes{$d} = $d;
+    -                    $indexes{ ( $1 ? "$1/" : '' ) . "$2.$file_extension" } = 1
+    +                    $indexes{ ( $path ? "$path/" : '' ) . "$file_basename.$file_extension" } = 1
+                             if $static_entries;
+                     }
+                 }
+
+
+
