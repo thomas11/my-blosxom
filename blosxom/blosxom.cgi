@@ -404,6 +404,12 @@ $entries = sub {
                 )
             {
 
+                # thomas11: save the regex matched groups in variables
+                # to preserve them from future regex matches and for
+                # readibility.
+                my $path = $1;
+                my $file_basename = $2;
+
                 # thomas11: Use the date in the file name, as in
                 # 2011-03-13_title, rather than the actual file mtime. I
                 # sometimes publish articles long after writing the
@@ -429,23 +435,29 @@ $entries = sub {
                 }
                 # END thomas11
 
+                print "1 Handling $File::Find::name\n";
+
                 # to show or not to show future entries
                 return unless ( $show_future_entries or $mtime < time );
+
+                print "2 not in the future\n";
 
                 # add the file and its associated mtime to the list of files
                 $files{$File::Find::name} = $mtime;
 
                 # static rendering bits
                 my $static_file
-                    = "$static_dir/$1/index." . $static_flavours[0];
+                    = "$static_dir/$path/index." . $static_flavours[0];
                 if (   param('-all')
                     or !-f $static_file
                     or stat($static_file)->mtime < $mtime )
                 {
-                    $indexes{$1} = 1;
+                    print "3 Rendering statically, index $1\n";
+
+                    $indexes{$path} = 1;
                     $d = join( '/', ( nice_date($mtime) )[ 5, 2, 3 ] );
                     $indexes{$d} = $d;
-                    $indexes{ ( $1 ? "$1/" : '' ) . "$2.$file_extension" } = 1
+                    $indexes{ ( $path ? "$path/" : '' ) . "$file_basename.$file_extension" } = 1
                         if $static_entries;
                 }
             }
@@ -488,11 +500,16 @@ if (    !$ENV{GATEWAY_INTERFACE}
     # Home Page and Directory Indexes
     my %done;
     foreach my $path ( sort keys %indexes ) {
+        print "4 Path $path\n";
+
         my $p = '';
         foreach ( ( '', split /\//, $path ) ) {
             $p .= "/$_";
             $p =~ s!^/!!;
             next if $done{$p}++;
+
+            print "5 not done yet\n";
+
             mkdir "$static_dir/$p", 0755
                 unless ( -d "$static_dir/$p" or $p =~ /\.$file_extension$/ );
             foreach $flavour (@static_flavours) {
@@ -506,6 +523,8 @@ if (    !$ENV{GATEWAY_INTERFACE}
                 $output = '';
                 if ( $indexes{$path} == 1 ) {
 
+                    print "6a indexes present\n";
+
                     # category
                     $path_info = $p;
 
@@ -515,6 +534,8 @@ if (    !$ENV{GATEWAY_INTERFACE}
                         $content_type );
                 }
                 else {
+                    
+                    print "6b date\n";
 
                     # date
                     local (
