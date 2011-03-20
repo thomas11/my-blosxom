@@ -13,6 +13,7 @@ Recently at work, I wanted to execute some code for each member of a
 List, and I needed to know which iteration step I was at. A
 straightforward solution is, obviously, the classic for loop:
 
+    !highlight java
     for (int i = 0; i < keyword.getSynonyms(); i++) {
         String synonym = keyword.getSynonyms().get(i);
         // do something
@@ -25,6 +26,7 @@ requiring another scan of the list each time.
 
 So we could iterate normally and count ourselves:
 
+    !highlight java
     int order = 0;
     for (String synonym : keyword.getSynonyms()) {
         // do something
@@ -34,6 +36,7 @@ So we could iterate normally and count ourselves:
 It's better, but I needed several such loops, and I wondered if I
 couldn't write all that plumbing just once. I came up with this:
 
+    !highlight java
     public abstract class Counting<T, E extends Throwable>
     {        
         public void loop(Iterable<T> things) throws E
@@ -55,6 +58,7 @@ type. This breaks if you need more than one exception type.
 
 The above loop then becomes
 
+    !highlight java
     new Counting<String, SQLException>()
     {
         @Override public void iteration(String synonym, int step)
