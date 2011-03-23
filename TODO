@@ -1,11 +1,17 @@
-- sorting and creating the archive pages by mtime makes no sense. do
-  it based on either filename or meta:date tag.
+- Archive page and link to it in header
+
+- Making of/colophon on about
+
+- Link to github on about
 
 - little welcome blurb on the home page? would require hacking as
   putting it in header.html would show it on each article page, too.
 
 - make a footer with a little "about" info and links. maybe licensing,
   too?
+
+- DONE sorting and creating the archive pages by mtime makes no
+  sense. do it based on either filename or meta:date tag.
 
 - DONE write about.html
 
