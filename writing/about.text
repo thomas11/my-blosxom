@@ -1,6 +1,8 @@
 Welcome
 static: true
 
+<img src="/static/me.jpg" style="float:right; padding-left: 1em;" />
+
 Welcome! I'm Thomas Kappler, sometimes known as thomas11 on the web.
 I write about programming and other things
 [hackers](http://news.ycombinator.com/) might find interesting.
