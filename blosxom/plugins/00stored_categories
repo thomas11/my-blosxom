@@ -1,4 +1,4 @@
-package load_stored_categories;
+package stored_categories;
 
 use Storable;
 
@@ -18,22 +18,24 @@ sub start {
     # my $meta_per_file = retrieve(path_to_storage($META_PER_FILE_STORAGE));
 
     # Make paths point to HTML files.
-    my %files_per_tag = ();
+    my %html_files_per_tag = ();
     while (my ($cat, $articles) = each %$files_per_tag) {
-        $files_per_tag{$cat} = [];
+        $html_files_per_tag{$cat} = [];
         for my $article (@$articles) {
             my $html_file = $article;
             $html_file .= '.html';
-            push @{$files_per_tag{$cat}}, $html_file;
+            push @{$html_files_per_tag{$cat}}, $html_file;
         }
     }
 
+    
+
 
     # Create the HTML <ul> to display directly.
-    while (my ($cat, $files) = each %$stored_files_per_tag) {
+    while (my ($cat, $files) = each %html_files_per_tag) {
         my $list = '<ul>';
         for my $article (@$files) {
-            $list .= '<li><a href="../' . $article->[0] . '">' . $article->[1] . '</a></li>';
+            $list .= '<li><a href="../' . $article . '">' . $article . '</a></li>';
         }
         $list .= '</ul>';
         $$cat = $list;
