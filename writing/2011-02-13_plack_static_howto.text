@@ -8,9 +8,8 @@ You have a directory containing HTML files and would like to browse it
 locally. There are absolute links like `/static/site.css` in the HTML,
 so just opening index.html would break those links.
 
-Perl's recent web superstar module
-[Plack](wordpress-local/docroot/wp-content/themes/ub_swiss/) can do it
-easily.
+Perl's recent web superstar module [Plack](http://plackperl.org/) can
+do it easily.
 
 Create a file named `plack.psgi` with the following content:
 
