@@ -20,8 +20,12 @@ body {
   margin-top: 2em;
 }
 .site h2,h3,h4 {
-  font-size: 110%;
+  font-size: 100%;
   /* margin-top: 2em; */
+}
+
+h3.archiveyear {
+    margin-bottom: -0.5em;
 }
 
 .site .abstract {
