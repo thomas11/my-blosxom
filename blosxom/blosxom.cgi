@@ -38,7 +38,10 @@ $url = "/";
 $depth = 0;
 
 # How many entries should I show on the home page?
-$num_entries = 20;
+# thomas11: Due to my 'static: true' hack (see entries.html), this
+# number must be the one you want plus `grep -R 'static: true'
+# writing/ | wc -l`.
+$num_entries = 36;
 
 # What file extension signifies a blosxom entry?
 $file_extension = "text";
