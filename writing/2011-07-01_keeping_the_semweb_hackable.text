@@ -2,7 +2,7 @@ Keeping the (Semantic) Web Hackable
 date: 2011-07-01
 blurb: OWL reasoning, clusters and big Java APIs are good for certain Semantic Web applications, but the SemWeb will never come if it's not easily hackable.
 zine: The Data Web
-categories: The Data Web, semantic, semanticweb, linkeddata, rant
+categories: Linked Data
 
 Below is a rant I wrote over a year ago to the Biohackathon mailing
 list. I still feel it's important, so here it is, somewhat edited, for
@@ -47,13 +47,13 @@ conventions, and use a 100-class Java API, and set up a cluster to
 work with the data, it's not gonna happen.
 
 I want people to be able to write a small Perl program that starts a
-local 4store, and then you paste in a few URLs, and you have an
-instant knowledge repository. Or write a web page with JQuery that
-just GETs some RDF in JSON and formats it nicely using some
-JavaScript. To an academic Semantic Web researcher these look like toy
-applications, but they are not, because they enable people to get
-their hands dirty and do something with your data instead of waiting
-for the final Semantic Web vision to take off.
+local [4store](http://4store.org/), and then you paste in a few URLs,
+and you have an instant knowledge repository. Or write a web page with
+JQuery that just GETs some RDF in JSON and formats it nicely using
+some JavaScript. To an academic Semantic Web researcher these look
+like toy applications, but they are not, because they enable people to
+get their hands dirty and do something with your data instead of
+waiting for the final Semantic Web vision to take off.
 
 I was never involved in the Linked Data movement but I assume I'm
 repeating some of what these people have been saying.
