@@ -2,7 +2,7 @@ Java anonymous classes are too verbose
 date: 2010-11-11
 blurb: No fun emulating closures.
 zine: Desperate Java
-categories: Desperate Java, programming, java
+categories: Java, Functional Programming
 
 Java doesn't have first-class functions or closures, but you can
 emulate some of that with anonymous classes. Alas, they are just too

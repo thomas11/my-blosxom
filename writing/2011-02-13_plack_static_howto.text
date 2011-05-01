@@ -2,7 +2,7 @@ How to serve a static directory with Plack
 date: 2011-02-13
 blurb: From directory to http://localhost:5001/page.html as simply as possible.
 zine: The Perl Nature
-categories: The Perl Nature, perl, short
+categories: Perl, Nitty Gritty
 
 You have a directory containing HTML files and would like to browse it
 locally. There are absolute links like `/static/site.css` in the HTML,

@@ -2,7 +2,7 @@ Overriding Blosxom's Time Stamping
 date: 2011-03-20
 blurb: Blosxom sorts articles by the input file's mtime. Here's a patch to override that.
 zine: The Perl Nature
-categories: The Perl Nature, perl, blosxom, code
+categories: Perl
 
 
 [Blosxom](http://blosxom.sourceforge.net/), the Perl blog engine
