@@ -86,6 +86,15 @@ a:visited {
   color: #444;
 }
 
+.header_categories {
+  font-style: italic;
+  font-size: 80%;
+}
+
+.header_categories a {
+  padding-left: 0.7em;
+}
+
 a.nav {
     font-weight: bold;
 }

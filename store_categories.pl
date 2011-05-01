@@ -11,14 +11,12 @@ use Storable;
 my $CATEGORIES = 'categories';
 my $BLOSXOM_FILE_EXTENSION = 'text';
 
-my $ARTICLES_PER_CATEGORY_STORAGE = '.categories';
-my $META_PER_FILE_STORAGE = '.meta';
+my $META_STORAGE = '.meta';
 
 my $writing_dir = $ARGV[0];
 die "Please give the directory containing your writing" unless $writing_dir;
 
-my %articles_per_category = ();
-my %meta_per_file = ();
+my %meta_global = ( categories => {} );
 
 sub handle_file {
     my $file = $_;
@@ -34,36 +32,51 @@ sub handle_file {
     # a meta value, too, but I couldn't get it to work in the
     # templates.
     my $first_line = 1;
-    my $title;
+
+    my %meta = ();
+    # The end result will look like this:
+    # meta
+    #  article
+    #    title
+    #    date
+    #    blurb
+    #    [categories]
+    #  categories
+    #    [articles]
 
     while (my $line = <$fh>) {
 
         # Title; see above.
         if ($first_line) {
-            $title = $line;
-            $meta_per_file{title} = $title;
+            $meta{title} = $line;
             $first_line = 0;
             next;
         }
 
         # Meta tag of the form "key: value"?
         my ($key, $value) = ($line =~ m!^(.+?)\s*:\s*(.+)$!);  # from meta
-        next unless (defined $key and $key eq $CATEGORIES);
+        next unless defined $key;
 
-        my @categories = ();
-        for my $category (split /, */, $value) {
-            push @categories, $category;
+        if ($key eq $CATEGORIES) {
+            my @categories = ();
+            for my $category (split /, */, $value) {
+                push @categories, $category;
 
-            if (not exists $articles_per_category{$category}) {
-                $articles_per_category{$category} = [];
+                my $global_categories = $meta_global{categories};
+                if (not exists $global_categories->{$category}) {
+                    $global_categories->{$category} = [];
+                }
+                push @{$global_categories->{$category}}, $article;
             }
-            push @{$articles_per_category{$category}}, $article;
+            $meta{categories} = \@categories;
+        } else {
+            $meta{$key} = $value;
         }
-        $meta_per_file{$article} = \@categories;
     }
+
+    $meta_global{$article} = \%meta;
 }
 
 find(\&handle_file, ($writing_dir));
 
-store \%articles_per_category, $ARTICLES_PER_CATEGORY_STORAGE;
-# store \%meta_per_file, $META_PER_FILE_STORAGE
+store \%meta_global, $META_STORAGE;

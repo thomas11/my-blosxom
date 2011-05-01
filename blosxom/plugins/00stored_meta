@@ -1,0 +1,67 @@
+package stored_meta;
+
+use Storable;
+
+my $META_STORAGE = $blosxom::datadir . '/../' . '.meta';
+
+
+# We make the following items available to the templates:
+#
+# A sequence of links to category pages, ordered by number of articles:
+# <a href="categories/Perl.html" class="nav">Perl</a> <a ...
+#
+# A list of article summaries per category, like on the front page:
+#
+# <div class="articlesummary">
+#   <span class="date">2011-02-13</span>&nbsp;&raquo;
+#   <a href="/2011-02-13_foo.html">foo</a><br />
+#   foo summary
+#   </div>
+
+my $FREQUENT_N = 6;
+
+# Global since we access it from templates.
+$topics = '';
+
+sub start {
+    my $meta = retrieve($META_STORAGE);
+    my %categories = %{$meta->{categories}};
+
+    warn "could not load any stored meta data" unless %$meta;
+    warn "could not load any stored categories" unless %categories;
+
+    for my $f (n_most_frequent_categories($FREQUENT_N, \%categories)) {
+        warn "Category $f\n";
+        $frequent_links .= "<a href=\"/categories/$f.html\">$f</a> ";
+    }
+    $topics = $frequent_links;
+
+    while (my ($cat, $files) = each %categories) {
+        my $html = '';
+        $html .= article_summary($_, $meta->{$_}) for @$files;
+        $$cat = $html;
+    }
+}
+
+sub n_most_frequent_categories {
+    my ($n, $categories) = @_;
+    my @frequent =
+      map { $_->{k} }
+        sort { {$b}->{count} <=> $a->{count} }
+          grep { $_->{count} > 1}
+            map { {k => $_, count => scalar @{$categories->{$_}}} }
+              keys %$categories;
+    my $num_topics = @frequent > $FREQUENT_N ? $FREQUENT_N : @frequent;
+    return @frequent[0 .. $num_topics - 1];
+}
+
+# This duplicates the entries.html template.
+sub article_summary {
+    my ($name, $meta) = @_;
+    return "<div class=\"articlesummary\">\n"
+      . "  <span class=\"date\">$meta->{date}</span>&nbsp;&raquo; "
+      . "<a href=\"/$name.html\">$meta->{title}</a><br />\n"
+      . "$meta->{blurb}\n</div>\n";
+}
+
+1;

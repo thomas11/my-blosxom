@@ -1,4 +1,4 @@
 out
-.categories
 blosxom/plugins/state
 .meta
+writing/categories/*.text
